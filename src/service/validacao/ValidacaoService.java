@@ -37,11 +37,15 @@ public class ValidacaoService {
 
 				boolean validacaoContemParametros = validacao.contains(":");
 				if (validacaoContemParametros) {
-					//TODO: LANCAR EXCEPTION CASO NAO SEJA PASSADO NENHUM VALOR DE PARAMETRO
-					Object nomeValidacao = validacao.split(":")[0];
-					String parametroValidacao = validacao.split(":")[1];
+					String[] nomeEParametro = validacao.split(":");
 					
-					//COLOCAR O RESULTADO DA VALIDACAO NAS STRATEGIES (APENAS MENSAGEM E VALIDACAO FALHOU O RESTANTE
+					if (nomeEParametro.length <= 1) {
+						throw new Exception("Parametros insuficientes para a validacao");
+					}
+					
+					String nomeValidacao = nomeEParametro[0];
+					String parametroValidacao = nomeEParametro[1];
+					
 					validacaoInput = this.validacoesStrategy.get(nomeValidacao);
 					resultadoValidacao = validacaoInput.validar(input, parametroValidacao);
 				} else {
@@ -54,11 +58,6 @@ public class ValidacaoService {
 			erroValidacao.printStackTrace();
 		}
 	}
-	
-	//TODO: CRIAR REPOSITORIO
-	//https://stackoverflow.com/questions/16903046/find-todo-tags-in-eclipse
-	//CRIAR UM OBJETO PARA ARMAZENAR ESSE MAP LER SOBRE RECORD https://www.youtube.com/watch?v=gJ9DYC-jswo
-
 	
 	public void imprimirErros() {
 		for (ListaValidacoesRecord erro : this.listaValidacoes) {

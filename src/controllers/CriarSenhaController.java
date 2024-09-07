@@ -19,7 +19,7 @@ public class CriarSenhaController {
 	
 	public void criarSenha() {
 		ValidacaoService validacao= this.obterValidationService();
-		validacao.validarInput(this.nome, "tamanhoMinimo:6", "tamanhoMinimo:10");
+		validacao.validarInput(this.nome, "tamanhoMinimo:");
 		validacao.validarInput(this.senha, "tamanhoMinimo:11");
 		validacao.validarInput(this.senha, "tamanhoMinimo:12");
 		validacao.validarInput(this.repetirSenha, String.format("igual:%s", this.senha.getText()), "tamanhoMinimo:13");
